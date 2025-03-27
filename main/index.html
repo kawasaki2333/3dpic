@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>注册</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        /* 背景图的url自行设置 */
+        /* background-image: url("img/bgi4.jpg"); */
+    }
+
+    form {
+        margin: 80px auto;
+        width: 400px;
+        height: 500px;
+        border: 1px solid whitesmoke;
+        /* 背景模糊 */
+        backdrop-filter: blur(5px);
+    }
+
+    h2 {
+        width: 400px;
+        height: 50px;
+        color: cadetblue;
+        background-color: whitesmoke;
+        text-align: center;
+        line-height: 42px;
+    }
+
+    .center {
+        margin: 38px auto;
+        width: 272px;
+        height: 366px;
+    }
+
+    .content {
+        width: 272px;
+        height: 34px;
+    }
+
+    .center p {
+        margin-top: 0;
+        padding-bottom: 40px;
+        height: 5px;
+    }
+
+    .button {
+        width: 272px;
+        height: 34px;
+        color: white;
+        background-color: skyblue;
+        border: 1px solid skyblue;
+    }
+
+    /*视频背景*/
+    .fullscreenvideo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        -webkit-transition: 1s opacity;
+        transition: 1s opacity;
+    }
+
+    .videocontainer {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -100;
+    }
+
+        .videocontainer:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            background: rgba(0,0,0,0);
+        }
+
+</style>
+<body>
+    <form>
+        <h2>注册账号</h2>
+        <div class="center">
+            <video class="fullscreenvideo" playsinline="" autoplay="" muted="" loop="">
+                <source src="./img/desket.mp4" type="video/mp4">
+            </video>
+            <input type="text" placeholder="用户名" id="username" class="content" required />
+            <p id="err-user"></p>
+            <input type="text" placeholder="邮箱" id="email" class="content" required />
+            <p id="err-email"></p>
+            <input type="password" placeholder="密码" id="password" class="content" required />
+            <p id="err-pwd"></p>
+            <input type="password" placeholder="确认密码" id="repassword" class="content" required />
+            <p id="err-check"></p>
+            <input type="button" value="注册" class="button" onclick="validateForm()" />
+        </div>
+    </form>
+</body>
+
+<script>
+
+    function validateForm() {
+        // 清除之前的错误信息
+        document.querySelectorAll('.error').forEach(el => el.innerHTML = '');
+            
+        const username = document.getElementById("username").value;
+        var err_user = document.getElementById("err-user");
+
+        const email = document.getElementById("email").value;
+        var err_email = document.getElementById("err-email");
+
+        const password = document.getElementById("password").value;
+        var err_pwd = document.getElementById("err-pwd");
+
+        const repassword = document.getElementById("repassword").value;
+        var err_check = document.getElementById("err-check");
+        let isValid = true;
+
+        // 用户名验证
+        if (!/^[a-zA-Z][-_0-9a-zA-Z]{3,5}$/.test(username)) {
+            document.getElementById("err-user").innerHTML = "请输入4-6个由字母和数字组成的用户名";
+            err_user.style.color = "red";
+            isValid = false;
+        } else {
+            document.getElementById("err-user").innerHTML = "用户名可用";
+        }
+
+        // 邮箱验证
+        if (!/^[0-9a-zA-Z]+@[0-9a-zA-Z]+(.com|cn|net|org)$/.test(email)) {
+            document.getElementById("err-email").innerHTML = "请输入正确的邮箱格式";
+            err_email.style.color = "red";
+            isValid = false;
+        } else {
+            document.getElementById("err-email").innerHTML = "邮箱格式正确";
+        }
+
+        // 密码验证
+        if (!/^[a-zA-Z][-_0-9a-zA-Z!@?]{5,9}$/.test(password)) {
+            document.getElementById("err-pwd").innerHTML = "请输入6-10位由字母开头，数字字母特殊字符的密码";
+            err_pwd.style.color = "red";
+            isValid = false;
+        } else {
+            document.getElementById("err-pwd").innerHTML = "密码格式正确";
+        }
+
+        // 确认密码验证
+        if (repassword !== password) {
+            document.getElementById("err-check").innerHTML = "两次密码不同";
+            err_check.style.color = "red";
+            isValid = false;
+        } else {
+            document.getElementById("err-check").innerHTML = "两次密码相同";
+        }
+
+        // 如果所有验证通过，跳转页面
+        if (isValid) {
+            window.location.href = 'internet.html';
+        }
+    }
+</script>
+</html>
